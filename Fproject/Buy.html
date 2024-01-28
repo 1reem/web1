@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> rkba page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <style>
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-image: url("Images/BG.jpg");
+            background-size: cover;
+        }
+
+    /* --------------------*/
+  /*----  navigation bar----- */
+  nav {
+			display: flex;
+			background-color: #333;
+			color: #fff;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+		}
+		nav img {
+			height: 50px;
+			width: 50px;
+			margin-left: 10px;
+		}
+		nav ul {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		nav li {
+			margin-right: 20px;
+		}
+		nav li:last-child {
+			margin-right: 0;
+		}
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			
+			font-size: 18px;
+			padding: 10px;
+			transition: all 0.3s ease-in-out;
+		}
+		nav a:hover {
+			background-color: #fff;
+			color: #333;
+		}
+    .logout-btn {
+			background-color:#333;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s  "login.html";
+		}
+    /*----  ----- */
+        
+
+        .container {
+            text-align: center;
+            background-color: #22181a65;
+            font-size: 25px;
+            color: rgb(244, 235, 235);
+            padding: 20px;
+        }
+       
+        h3, hr { 
+            color: rgb(243, 234, 234);
+            font-weight: bold;}
+        textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        #confirmationModal .modalDialog {
+            max-width: 400px;
+        }
+        #totalValue {
+        background: white;
+        color: rgb(32, 1, 1);
+    }
+
+    </style>
+</head>
+
+<body>
+     <!-- navgation bar  -->
+     <nav>
+      
+        <a href="home.html"><img src="images/ LOGO.jpg" alt="Logo"></a>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="Search.html">Search</a></li>        
+          <li><a href="books.html">Books</a></li>
+          <li><a href="Shopping.html">Shop</a></li>          
+          <li><a href="Buy.html">Buy</a></li>
+          
+        </ul>
+        <form action="login.html">
+          <button class="logout-btn">Logout</button>
+        </form>
+      </nav>
+      
+    <div class="container">
+   <div class="row">
+   <div class="col-md-6">
+    <form id="buyForm">
+        <h3><center> Buy</center>  </h3> 
+        <hr>
+                    <div class="formGroup" id="labeeltotal">
+                        <div class="formGroup">
+                            <label>Your total amount  <i class="fas fa-money-bill"></i></label>
+                            <div id="totalValue"></div>
+                        </div>
+                        
+                        <label  for="option1">How will you pay?</label><br>
+                        <div style="float: left;" margin="10px">
+                            <input type="radio" name="paymentOption" id="option1" value="Master Card" checked>
+                           <label  for="option1"><i class="fa fa-cc-visa" style="font-size:36px"></i>
+                                <i class="fa fa-cc-mastercard" style="font-size:36px"></i> </label>
+                        </div>
+                          <div style="float: left;" margin="10px">
+                            <input type="radio" name="paymentOption" id="option2" value="PayPal">
+                            <label  for="option2"><i class="fa fa-paypal" style="font-size:36px"></i>
+                                <i class="fa fa-cc-paypal" style="font-size:36px"></i>
+                        </div>
+                        
+                    </div>
+
+                    <div class="formGroup">
+                        <textarea class="formControl" placeholder="Enter your comment..." id="note" rows="2"></textarea>
+                    </div>
+                    <button="submit" onclick="Buy()" class="btn btn-success">Buy</button>
+                </form>
+            </div>
+           
+            <div class="videoContainer">
+                <video id="video" poster="Images/ LOGO.jpg" controls width="480"height="360"  >
+                 <source src ="video/v1.mp4" type="video/mp4">
+                 
+                </video>
+        </div>
+            </div>
+        </div>
+    </div>
+
+  <!--  JavaScript  -->
+    <script>
+        const totalValue = localStorage.getItem('total'); // Retrieve the total value from local storage a
+        document.getElementById('totalValue').textContent = totalValue;
+         // Define a function Buy
+        function Buy (){
+        // Retrieve the selected payment option, total value,  note entered by user
+        const paymentOption = document.querySelector("input[name='paymentOption']:checked").value;
+        const totalValue = localStorage.getItem("total");
+        document.getElementById("totalValue").textContent = totalValue;
+        const note = document.getElementById("note").value;
+         // Create a confirmation message with the total amount and payment method
+        const confirmationMessage = `Total amount = $${totalValue}\nPayment method is ${paymentOption}\nAre you sure?`;
+        const isConfirmed = confirm(confirmationMessage);// Prompt the confirmation message and store the user's response
+        if (isConfirmed) { // If  confirms the transaction  redirect to the rkhome page
+            window.location.href = "home.html";
+        }
+    };
+</script>
+</body>
+</html>

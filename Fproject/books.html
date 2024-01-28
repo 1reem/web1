@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> rkbook page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <!-- css  -->
+  <style>
+
+    body {
+        font-family: sans-serif;
+          margin: 0;
+        text-align: center;
+      }
+  
+ /* --------------------*/
+  /*----  navigation bar----- */
+  nav {
+			display: flex;
+			background-color: #333;
+			color: #fff;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+		}
+		nav img {
+			height: 50px;
+			width: 50px;
+			margin-left: 10px;
+		}
+		nav ul {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		nav li {
+			margin-right: 20px;
+		}
+		nav li:last-child {
+			margin-right: 0;
+		}
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			
+			font-size: 18px;
+			padding: 10px;
+			transition: all 0.3s ease-in-out;
+		}
+		nav a:hover {
+			background-color: #fff;
+			color: #333;
+		}
+    .logout-btn {
+			background-color:#333;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s  "login.html";
+		}
+    /*----  ----- */
+        
+    /*---- table show  items info ----- */
+    table {
+      border-collapse: collapse;
+      width: 70%;
+      font-size: 20px;
+      margin: 0 auto;
+          text-align: center;
+    }
+  
+    th{
+      text-align: center;
+      padding: 8px;
+      border: 1px solid black;
+      background-color: grey;
+    }
+   /*
+    th {
+      background-color: white;
+      color: #007bff;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #007bff;
+      color: white;
+    }
+  
+    tr:nth-child(odd) {
+      background-color: #f2f2f2;
+      color: #007bff;
+    } */
+        /*----   ----- */
+
+ /*---- product ----- */
+   #product-table img {
+      width: 60px;
+      align-content: center;
+      border: solid white;
+    }
+    #product-table img:hover {
+      border: solid black;
+    }
+         /*  ------ */
+
+    /*    dicount item  */
+
+ #sales {
+  border-radius: 15px;
+  background-color: #02070c;
+  width: 50%;
+  color: rgb(246, 237, 237);
+  cursor: pointer;
+  font-size: 40px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+
+ #sales:hover {
+  background-color: #f0f1eb;
+  color: rgb(57, 2, 2);
+}
+
+#special-item {
+  background-color: #000204;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+}
+#div p {
+font-size: medium;
+
+}
+#div
+ img {
+  max-width: 80%;
+}
+
+#div
+ img:hover {
+  max-width: 80%;
+  content: url("images/Book/books2.jpg");
+
+}
+
+
+#div
+ p {
+  margin: 10px 0;
+
+}
+   /* --------- */
+
+  </style>
+    <!--  end  -->
+  
+
+
+</head>
+<body>
+  <!-- navgation bar  -->
+  <nav>
+      
+    <a href="home.html"><img src="images/ LOGO.jpg" alt="Logo"></a>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="Search.html">Search</a></li>        
+      <li><a href="books.html">Books</a></li>
+      <li><a href="Shopping.html">Shop</a></li>          
+      <li><a href="Buy.html">Buy</a></li>
+      
+    </ul>
+    <form action="login.html">
+      <button class="logout-btn">Logout</button>
+    </form>
+  </nav>
+  <!--     end    -->
+
+
+   <!--  table -->
+<table class="tabe table-striped">
+  <thead>
+    <tr>
+
+    </tr>
+  </thead>
+  <tbody id="product-table">
+  </tbody>
+</table>
+
+
+ <!--Dscount item -->
+ <div id="sales">
+  <label>Dscount iteme </label>
+    <div id="div" style="display: none;">
+      <img src="images/Book/books1.JPG">   <!-- image1--> 
+        <p>MAGIC Treehouse </p>
+        <p>Price: 250 SAR</p>
+         <p>Discount: 50%</p>
+    </div>
+  </div>
+  
+
+
+
+  <!--  JavaScript  -->
+<!-- query.  -->
+<script>
+  $(document).ready(function() {
+    getText('books.json');
+    $("#sales").click(function() {
+      $("div").slideDown();
+    });
+  });
+
+  async function getText(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    var table = "<tr><th>Title</th><th>Description</th><th>Price</th><th>Image</th></tr>";
+    data.forEach(product => {
+      table += "<tr>";
+      table += "<td>" + product.title + "</td>";
+      table += "<td>" + product.description + "</td>";
+      table += "<td>" + product.price + "</td>";
+      table += "<td><img src='" + product.image + "'></td>";
+      table += "</tr>";
+    });
+    $("#product-table").html(table);
+  }
+</script>
+  <!--    -->
+</body>
+</html>
+
+
+

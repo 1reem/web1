@@ -1,0 +1,54 @@
+[
+    {
+      "title": "fear noval",
+      "description": "One of the most requested novels by the writer Osama ",
+      "price": "50 SR",
+      "image": "images/book/book1.jpg"
+    },
+    {
+      "title": "Diary of a wimpy kid",
+      "description": "One of the most requested books the book is about the diaries of a cowardly child  ",
+      "price": "45 SR",
+      "image": "images/book/book2.jpg"
+    },
+    {
+      "title": "life in management",
+      "description": " One of the most requested books, it talks about management",
+      "price": "55 SR",
+      "image": "images/book/book3.jpg"
+    },
+    {
+      "title": "Everyday Engilsh ",
+      "description": "This book helps to improve the English language of the reader",
+      "price": "60 SR",
+      "image": "images/book/book4.JPG"
+    },
+    {
+      "title": "Skills for Success",
+      "description": "Academic book This book also helps in improving the English language of the reader",
+      "price": "40 SR",
+      "image":"images/book/book5.JPG"
+    },
+    {
+      "title": "Rich DaD",
+      "description": "He talks about the mental differences and behaviors between the rich and the poorr",
+      "price": "35 SR",
+      "image": "images/book/book6.JPG"
+    },
+    {
+      "title": "Orange tree",
+      "description": "It tells a fairy tale, not the dreams of young people in Brazil, but rather the adventures of the writer in his childhood.",
+      "price": "50 SR",
+      "image": "images/book/book8.jpg"
+    },
+    {
+      "title": "And everything disappeared",
+      "description": "Ten people are invited to have fun on an island about which gossip and rumors abound",
+      "price": "65 SR",
+      "image": "images/book/book7.jpg" 
+    }
+  ]
+  
+  
+  
+    

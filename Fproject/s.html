@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> rksearch page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+      body {
+        font-family: sans-serif;
+          margin: 0;
+          background-image: url("Images/BG.jpg");
+      }
+
+  /* --------------------*/
+  /*----  navigation bar----- */
+  nav {
+			display: flex;
+			background-color: #333;
+			color: #fff;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+		}
+		nav img {
+			height: 50px;
+			width: 50px;
+			margin-left: 10px;
+		}
+		nav ul {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		nav li {
+			margin-right: 20px;
+		}
+		nav li:last-child {
+			margin-right: 0;
+		}
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			
+			font-size: 18px;
+			padding: 10px;
+			transition: all 0.3s ease-in-out;
+		}
+		nav a:hover {
+			background-color: #fff;
+			color: #333;
+		}
+    .logout-btn {
+			background-color:#333;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s  "login.html";
+		}
+    /*----  ----- */
+
+     
+ /*----((coordination search))----- */
+   .container {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(67, 65, 65, 0.761);
+  color: white;
+  padding: 20px;
+ 
+}
+
+.s{
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+  button {
+            background-color: #220202;
+            color: white;
+            padding: 10px 20px;
+            width: 200px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50px;
+        }
+
+
+        #detail {
+  margin-top: 20px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+ #detail img {
+ width: 100px;
+ height: 100px;
+border: solid black;
+        }
+        
+    </style>
+</head>
+<body>
+  <!-- navgation bar  -->
+  <nav>
+      
+    <a href="home.html"><img src="images/ LOGO.jpg" alt="Logo"></a>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="Search.html">Search</a></li>        
+      <li><a href="books.html">Books</a></li>
+      <li><a href="Shopping.html">Shop</a></li>          
+      <li><a href="Buy.html">Buy</a></li>
+      
+    </ul>
+    <form action="login.html">
+      <button class="logout-btn">Logout</button>
+    </form>
+  </nav>
+
+
+    <br>
+<div class="container">
+    <h2>Write the name of the book you are looking for</h2>
+    <input type="text" id="search-input">
+    <button id="search-button">Search</button>
+    <div id="detail"></div>
+</div>
+
+<script>
+document.getElementById("search-button").addEventListener("click", function() {
+    const searchInput = document.getElementById("search-input").value.toLowerCase();
+    const detailDiv = document.getElementById("detail");
+    detailDiv.innerHTML = "";
+
+    fetch("books.json")
+        .then(response => response.json())
+        .then(products => {
+                const foundProducts = products.filter(function(product) {
+                const productTitle = product.title.toLowerCase();
+                const searchKeyword = searchInput.toLowerCase();
+                return productTitle.includes(searchKeyword);
+            });
+
+            if (foundProducts.length > 0) {
+                foundProducts.forEach(function(foundProduct) {
+                    const title = document.createElement("h3");
+                    title.textContent = foundProduct.title;
+                    const description = document.createElement("p");
+                    description.textContent = foundProduct.description;
+                    const price = document.createElement("p");
+                    price.textContent = "Price: " + foundProduct.price;
+                    const image = document.createElement("img");
+                    image.src = foundProduct.image;
+
+                    detailDiv.appendChild(title);
+                    detailDiv.appendChild(description);
+                    detailDiv.appendChild(price);
+                    detailDiv.appendChild(image);
+                });
+            } else {
+                const notFoundMsg = document.createElement("p");
+                notFoundMsg.textContent = "Product not found";
+                detailDiv.appendChild(notFoundMsg);
+            }
+        })
+        .catch(error => {
+            console.log("Error loading products:", error);
+        });
+});
+
+</script>
+</body>
+</html>

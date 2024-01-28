@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title> rk Login Page</title>
+  <!-- css -->
+  <style>
+   
+ /*----( background image login)----- */
+ 
+   body {
+      background-image: url("images/BG.jpg");
+       }
+
+ /*----((coordination login ----- */
+ /* Center the login form */
+.container {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 200px;
+  background-color: rgba(67, 65, 65, 0.761);
+  padding: 20px;
+  color: rgb(236, 223, 223); }
+ /* Style the input fields */
+.c {
+   width: 100%;
+   padding: 5px;
+   margin-bottom: 10px;}
+/* Center the heading */
+h1{
+  text-align: center;
+  color: rgb(236, 223, 223);  }
+
+  </style>
+</head>
+
+
+<body>
+  <!-- Login form container -->
+  <div class="container">
+    <!-- Login form -->
+    <form id="loginForm" action="home.html">
+      <div class="login">
+        <h1> Login </h1><hr/>
+      </div>
+      <div>
+        <!-- Username input field -->
+        <label for="username">Username:</label>
+        <input type="text" class="c" id="username" name="username" placeholder="Username" maxlength="12" required>
+      </div>
+      <div>
+        <!-- Password input field -->
+        <label for="password">Password:</label>
+        <input type="password" class="c" id="password" name="password" placeholder="Password" required>
+      </div>
+      <div>
+        <!-- Login button -->
+        <button type="submit" class="btn btn-success">Login</button>
+      </div>
+      <label for="remember">
+        <!-- Remember me checkbox -->
+        <input type="checkbox" id="remember" name="remember"> Remember
+      </label>
+    </form> 
+    <!-- Link to register page -->
+    <p>Do you have an account ? <a href="register.html">Create Account</a></p>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {// Wait for DOM to load
+        // Get references to form elements
+      var loginForm = document.getElementById('loginForm');
+      var usernameInput = document.getElementById('username');
+      var passwordInput = document.getElementById('password');
+      var rememberCheckbox = document.getElementById('remember');
+
+     //the  rememberData v localStorage
+      if (localStorage.getItem('rememberData')) {
+ // Retrieve remember data from local storage and populate form fields
+       var rememberData = JSON.parse(localStorage.getItem('rememberData'));
+       usernameInput.value = rememberData.username;
+       passwordInput.value = rememberData.password;
+       rememberCheckbox.checked = true;
+      }
+   //  for form submit event
+      loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent default form submission behavior
+        // Get entered username and password
+        var username = usernameInput.value;
+        var password = passwordInput.value;
+       // Get stored username and password from local storage
+    var storedUsername = localStorage.getItem('username');
+    var storedPassword = localStorage.getItem('password');
+    if (username === storedUsername && password === storedPassword)  {
+
+ if (rememberCheckbox.checked) {//store the data in local storage
+    var rememberData = {
+    username: username,password: password };
+   localStorage.setItem('rememberData', JSON.stringify(rememberData));
+   } else {
+  localStorage.removeItem('rememberData');  // If remember me checkbox is not checked remove the data from local storage
+ }
+ window.location.href = loginForm.getAttribute('action');  // Redirect to home page
+  } else {
+   alert("Invalid username or password");//send 
+        }
+      });
+    });
+  </script>
+</body>
+</html>

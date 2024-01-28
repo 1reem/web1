@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> rksearch page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+      body {
+        font-family: sans-serif;
+          margin: 0;
+          background-image: url("Images/BG.jpg");
+      }
+
+  /* --------------------*/
+   /* Navigation bar styles */
+  nav {
+			display: flex;
+			background-color: #333;
+			color: #fff;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+		}
+		nav img {
+			height: 50px;
+			width: 50px;
+			margin-left: 10px;
+		}
+		nav ul {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		nav li {
+			margin-right: 20px;
+		}
+		nav li:last-child {
+			margin-right: 0;
+		}
+		nav a {
+			color: #fff;
+			text-decoration: none;
+			
+			font-size: 18px;
+			padding: 10px;
+			transition: all 0.3s ease-in-out;
+		}
+		nav a:hover {
+			background-color: #fff;
+			color: #333;
+		}    /* Logout button style */
+    .logout-btn {
+			background-color:#333;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s  "login.html";
+		}
+    /*----  ----- */
+
+     
+ /*----((coordination search))----- */
+   .container {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(67, 65, 65, 0.761);
+  color: white;
+  padding: 20px;
+ 
+}
+ /* Search input field styles */
+.s{
+ width: 90%;
+ padding: 10px;
+ margin-bottom: 10px;  }
+ /* Search button styles */
+ button {   
+ background-color: #220202;
+ color: white;
+ padding: 10px 20px;
+ width: 200px;
+ font-size: 20px;
+font-weight: bold;
+border-radius: 50px;  }
+ /* Book details container styles */
+#detail {
+  margin-top: 20px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+  /* Book details image styles */
+ #detail img {
+ width: 100px;
+ height: 100px;
+border: solid black;
+        }
+          /*  THE END */  
+    </style>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav>
+      
+    <a href="home.html"><img src="images/ LOGO.jpg" alt="Logo"></a>  <!-- IMAGE LOGO  -->
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="Search.html">Search</a></li>        
+      <li><a href="books.html">Books</a></li>
+      <li><a href="Shopping.html">Shop</a></li>          
+      <li><a href="Buy.html">Buy</a></li>
+      
+    </ul>
+    <form action="login.html">
+      <button class="logout-btn">Logout</button><!-- Logout button -->
+    </form>
+  </nav>
+<!--  end navgation bar  -->
+
+    <br>
+<div class="container">
+    <h2>Write the name of the book </h2>
+    <input  class="s" type="text" id="search-input" placeholder=" enter the name book" >
+    <button id="search-button" >Search</button>
+    <div id="detail"></div><!-- Book details container -->
+</div>
+
+  <!-- JavaScript code to  search  -->
+<script>
+  document.getElementById("search-button").addEventListener("click", async function()  // Add a click event to the search button
+  {
+   const searchInput = document.getElementById("search-input").value.toLowerCase(); // Get the value of the search input field --- convert it to lowercase
+   const detailDiv = document.getElementById("detail");  // Get the book details container
+   detailDiv.innerHTML = "";  // Clear any previously displayed book details  انو ينظف 
+  
+   try {
+     // Fetch the book data from the JSON file
+    const response = await fetch('books.json');  
+    const products = await response.json();
+
+   // Filter the books based on the search input
+  const foundProducts = products.filter(function(product) {
+  const productTitle = product.title.toLowerCase();
+  const searchKeyword = searchInput.toLowerCase();
+  return productTitle.includes(searchKeyword);
+    });
+
+   // If any books are found display their details
+    if (foundProducts.length > 0) {
+  foundProducts.forEach(function(foundProduct) {
+   const title = document.createElement("h3");
+   title.textContent = foundProduct.title;
+   const description = document.createElement("p");
+   description.textContent = foundProduct.description;
+   const price = document.createElement("p");
+   price.textContent = "Price: " + foundProduct.price;
+  
+   const image = document.createElement("img");
+   image.src = foundProduct.image;
+  
+  // Append the book details to the container
+   detailDiv.appendChild(title);
+   detailDiv.appendChild(description);
+   detailDiv.appendChild(price);
+   detailDiv.appendChild(image);
+  });
+  } 
+  else {  // If no books are found, display a message
+  const notFoundMsg = document.createElement("p");
+  notFoundMsg.textContent = "Product not found";
+  detailDiv.appendChild(notFoundMsg);
+    }
+   } catch (error) {
+    console.log("Error loading products:", error);
+   }
+  });
+  
+  
+  </script>
+  </body>
+  </html>
